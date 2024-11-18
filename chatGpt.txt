@@ -1,0 +1,46 @@
+Basic Network Commands:
+
+    To test connectivity to a host, use: ping abc.com.
+    To view IP configuration details on Windows, use: ipconfig.
+    To trace the route taken by packets to a specific IP, use: tracert <IP>.
+    To list all wireless network profiles on Windows, use: netsh wlan show profile.
+    To combine ping and tracert for detailed path analysis, use: pathping <IP>.
+    To display all active connections and listening ports, use: netstat -a.
+    To create a network share with full access for everyone on Windows, use: net share ShareName=C:\share /GRANT:Everyone,FULL.
+    To remove a network share, use: net share ShareName /DELETE.
+    To display the routing table, use: route print.
+    To view the Address Resolution Protocol (ARP) cache, use: arp -a.
+    To perform a DNS lookup and resolve domain names or IPs, use: nslookup <IP or domain>.
+
+Advanced Network and Penetration Testing Commands:
+
+Simulating a SYN Flood Attack: To simulate a SYN flood attack on port 80, use: sudo hping3 -S --flood --interface eth0 -p 80 <IP>.
+
+Sending TCP RST Packets: To send TCP RST (Reset) packets to a target on port 80, use: sudo hping3 -R -p 80 <IP>.
+
+TCP Port Scanning using Nmap:
+
+    For a TCP connect scan, use: nmap -sT <IP>.
+    For a SYN scan, use: nmap -sS <IP>.
+    For a FIN scan, use: nmap -sF <IP>.
+    For an Xmas scan, use: nmap -sX <IP>.
+    For a NULL scan, use: nmap -sN <IP>.
+
+UDP Port Scanning:
+
+    To perform a basic UDP scan, use: sudo nmap -sU --host-timeout 100s <domain>.
+    To scan specific ports with custom data, use: sudo nmap -sU -p 53,123 --data-length 16 --max-retries 1 --host-timeout 30m --min-rate 1000 <domain>.
+    To perform a UDP scan with limited retry, use: sudo nmap -sU -p 53,123 --max-retries 1 --host-timeout 15m --min-rate 1000 <domain>.
+
+Attack Simulations:
+
+    To simulate a ping of death, use: ping -s 65500 <targetIP>.
+    To send packets with a spoofed source address, use: sudo hping3 --spoof <SpoofedIP> -c 10 -S <TargetIP>.
+    To send ICMP "Destination Unreachable" packets, use: sudo hping3 -C 3 -d 120 -p 443 <IP>.
+    To simulate an ICMP redirect attack, use: sudo hping3 -C 5 -d 120 <LINUX_IP> -p 443 <WIN_IP>.
+    To send ICMP "Source Quench" packets, use: sudo hping3 -C 4 -d 120 <WIN_IP>.
+
+Fragmentation Attacks:
+
+    To simulate an IP fragmentation ping, use: sudo ping -f -l 900 <WIN_IP>.
+    To simulate an IP teardrop attack, use: sudo hping3 -I eth0 --frag --flood -d 120 -p 80 <IP>.
